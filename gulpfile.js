@@ -34,8 +34,8 @@ gulp.task('sass', function() {
     });
 });
 
-gulp.task('default',['sass'], function (cb) {
-    browserSync.init({
+gulp.task('default',['sass'], function () {
+    return browserSync.init({
         files: [
             'src/**/*.html',
             'src/**/*.htm',
