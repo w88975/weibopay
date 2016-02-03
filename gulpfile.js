@@ -34,6 +34,8 @@ gulp.task('sass', function() {
     });
 });
 
+var cndUrl = 'https://localhost:9111/';
+
 gulp.task('default',['sass'], function () {
     return browserSync.init({
         files: [
@@ -41,19 +43,33 @@ gulp.task('default',['sass'], function () {
             'src/**/*.htm',
             'src/**/*.css',
         ],
+
         server: {
-            baseDir: ['src/','.temp']
+            baseDir: ['src/','.temp'],
         },
+
         port: 9111,
+
         https: true,
-        open: false,
+
+        open: true,
+
         online: false,
-        ghostMode: {
-            clicks: true,
-            forms: true,
-            scroll: true
-        },
+
         reloadOnRestart: true,
+
         timestamps: true,
+
+        browser: ["google chrome", "firefox"],
+
+        rewriteRules: [
+            {
+                // ## 替换CDNURL
+                match: /@{cdnUrl}/g,
+                fn: function (match) {
+                    return cndUrl;
+                }
+            }
+        ]
     });
 });
